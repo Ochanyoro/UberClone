@@ -11,7 +11,7 @@ import CoreLocation
 
 struct ContentView: View {
     var body: some View {
-        Home()
+        MapView()
     }
 }
 
@@ -21,83 +21,57 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+import SwiftUI
+import MapKit
+import CoreLocation
 
-struct Home: View {
+struct MapView : UIViewRepresentable {
     
-    @State var map = MKMapView()
-    @State var manager = CLLocationManager()
-    @State var alert = false
-    @State var source: CLLocationCoordinate2D!
-    @State var destination: CLLocationCoordinate2D!
     
-    var body: some View {
-        
-        ZStack {
-            
-            VStack(spacing: 0) {
-                
-                HStack {
-                    
-                    Text("位置情報の取得")
-                        .font(.title)
-                    
-                    Spacer()
-                }
-                .padding()
-                .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
-                .background(.white)
-                
-                MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination)
-                    .onAppear {
-                        self.manager.requestAlwaysAuthorization()
-                    }
-            }
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
-}
-
-
-// おそらくUIViewをカスタムする
-struct MapView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
+        
         return MapView.Coordinator(parent1: self)
     }
     
+    @State var map = MKMapView()
+    @State var manager = CLLocationManager()
+    @State var alert : Bool = false
+    @State var source : CLLocationCoordinate2D!
+    @State var destination : CLLocationCoordinate2D!
     
-    @Binding var map: MKMapView
-    @Binding var manager: CLLocationManager
-    @Binding var alert: Bool
-    @Binding var source: CLLocationCoordinate2D!
-    @Binding var destination: CLLocationCoordinate2D!
-    
-    func makeUIView(context: Context) -> MKMapView {
+    func makeUIView(context: Context) ->  MKMapView {
         
         map.delegate = context.coordinator
         manager.delegate = context.coordinator
         map.showsUserLocation = true
         
+        // タップジェスチャー
+        let gesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.tap(ges:)))
+        map.addGestureRecognizer(gesture)
         return map
     }
     
-    func updateUIView(_ uiView: MKMapView, context: Context) {
+    func updateUIView(_ uiView:  MKMapView, context: Context) {
+        
         
     }
     
-    class Coordinator: NSObject, MKMapViewDelegate,CLLocationManagerDelegate {
+    class Coordinator : NSObject,MKMapViewDelegate,CLLocationManagerDelegate{
         
-        var parent: MapView
+        var parent : MapView
         
-        init(parent1: MapView) {
+        init(parent1 : MapView) {
             
             parent = parent1
         }
         
         func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-            if status == .denied {
+            
+            if status == .denied{
                 
                 self.parent.alert.toggle()
-            } else {
+            }
+            else{
                 
                 self.parent.manager.startUpdatingLocation()
             }
@@ -105,7 +79,33 @@ struct MapView: UIViewRepresentable {
         
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             
+            let region = MKCoordinateRegion(center: locations.last!.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
             self.parent.source = locations.last!.coordinate
+            
+            self.parent.map.region = region
+        }
+        
+        @objc func tap(ges: UITapGestureRecognizer){
+            
+            let location = ges.location(in: self.parent.map)
+            let mplocation = self.parent.map.convert(location, toCoordinateFrom: self.parent.map)
+            
+            let point = MKPointAnnotation()
+            point.title = "マーク"
+            point.subtitle = "Destination"
+            point.coordinate = mplocation
+            
+            self.parent.destination = mplocation
+            self.parent.map.removeAnnotations(self.parent.map.annotations)
+            self.parent.map.addAnnotation(point)
+        }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            
+            let over = MKPolylineRenderer(overlay: overlay)
+            over.strokeColor = .red
+            over.lineWidth = 3
+            return over
         }
     }
 }
