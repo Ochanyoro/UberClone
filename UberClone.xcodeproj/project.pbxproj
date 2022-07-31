@@ -13,6 +13,11 @@
 		82963B592894D15400A8049B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82963B582894D15400A8049B /* Preview Assets.xcassets */; };
 		82963B60289618B400A8049B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82963B5F289618B400A8049B /* GoogleService-Info.plist */; };
 		82963B632896195700A8049B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 82963B622896195700A8049B /* FirebaseFirestore */; };
+		82963B662896528500A8049B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82963B652896528500A8049B /* Home.swift */; };
+		82963B682896529C00A8049B /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82963B672896529C00A8049B /* Loader.swift */; };
+		82963B6A289652BF00A8049B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82963B69289652BF00A8049B /* MapView.swift */; };
+		82963B6C289652F700A8049B /* BookedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82963B6B289652F700A8049B /* BookedView.swift */; };
+		82963B702896582E00A8049B /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82963B6F2896582E00A8049B /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		82963B552894D15400A8049B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82963B582894D15400A8049B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		82963B5F289618B400A8049B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		82963B652896528500A8049B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		82963B672896529C00A8049B /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		82963B69289652BF00A8049B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		82963B6B289652F700A8049B /* BookedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedView.swift; sourceTree = "<group>"; };
+		82963B6F2896582E00A8049B /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 		82963B502894D15300A8049B /* UberClone */ = {
 			isa = PBXGroup;
 			children = (
+				82963B642896527400A8049B /* Views */,
 				82963B512894D15300A8049B /* UberCloneApp.swift */,
 				82963B532894D15300A8049B /* ContentView.swift */,
 				82963B552894D15400A8049B /* Assets.xcassets */,
@@ -70,6 +81,18 @@
 				82963B582894D15400A8049B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		82963B642896527400A8049B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				82963B652896528500A8049B /* Home.swift */,
+				82963B672896529C00A8049B /* Loader.swift */,
+				82963B69289652BF00A8049B /* MapView.swift */,
+				82963B6B289652F700A8049B /* BookedView.swift */,
+				82963B6F2896582E00A8049B /* SearchView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +173,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				82963B542894D15300A8049B /* ContentView.swift in Sources */,
+				82963B662896528500A8049B /* Home.swift in Sources */,
+				82963B6A289652BF00A8049B /* MapView.swift in Sources */,
+				82963B702896582E00A8049B /* SearchView.swift in Sources */,
+				82963B682896529C00A8049B /* Loader.swift in Sources */,
+				82963B6C289652F700A8049B /* BookedView.swift in Sources */,
 				82963B522894D15300A8049B /* UberCloneApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
