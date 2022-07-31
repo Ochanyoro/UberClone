@@ -168,7 +168,7 @@ struct ContentView : View {
             let filter = CIFilter(name: "CIQRCodeGenerator")
             filter?.setValue(self.doc.data(using: .ascii), forKey: "inputMessage")
             
-            let image = UIImage(ciImage: (filter?.outputImage?.transformed(by: CGAffineTransform(scaleX: 5, y: 5)))!)
+            let image = UIImage(ciImage: (filter?.outputImage?.transformed(by: CGAffineTransform(scaleX: 3, y: 3)))!)
             
             self.data = image.pngData()!
             
